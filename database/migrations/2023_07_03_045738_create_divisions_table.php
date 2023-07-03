@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('divisions', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->char('division', 45)->default('')->unique('division');
+            $table->char('division', 45)->default('');
             $table->integer('division_parent')->nullable();
+            $table->integer('level')->default(1);
             $table->integer('collaborators')->default(0);
             $table->integer('id_ambassador')->nullable()->index('id_ambassador');
             $table->timestamp('created_at')->useCurrentOnUpdate()->nullable()->useCurrent();
