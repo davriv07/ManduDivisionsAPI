@@ -25,8 +25,9 @@ class DivisionStoreRequest extends FormRequest
   {
     if (request()->isMethod('post')) {
       return [
-        'division' => 'required|string|min:2|max:45|unique:divisions,division',
+        'division' => 'required|string|min:2|max:45',
         'division_parent' => 'integer|exists:divisions,id',
+        'level' => 'integer|min:1',
         'collaborators' => 'integer|min:0',
         'id_ambassador' => 'integer|exists:ambassadors,id',
       ];
@@ -34,6 +35,7 @@ class DivisionStoreRequest extends FormRequest
     return [
       'division' => 'required|string',
       'division_parent' => 'integer',
+      'level' => 'integer',
       'collaborators' => 'integer',
       'id_ambassador' => 'integer',
     ];
@@ -46,7 +48,6 @@ class DivisionStoreRequest extends FormRequest
         'division.required' => 'Name of division is required!',
         'division.string' => 'Division name must be a string.',
         'division.max:45' => 'Division can not be bigger than 45 characters.',
-        'division.unique:divisions,division' => 'Division name already taken.',
         'division_parent.integer' => 'Division parent must be an integer.',
         'division_parent.exists:division,id' => 'Division parent must be an id of an existing division.',
         'id_ambassador.integer' => 'Ambassador must be an integer.',
@@ -57,7 +58,6 @@ class DivisionStoreRequest extends FormRequest
       'division.required' => 'Name of division is required!',
       'division.string' => 'Division name must be a string.',
       'division.max:45' => 'Division can not be bigger than 45 characters.',
-      'division.unique:divisions,division' => 'Division name already taken.',
       'division_parent.integer' => 'Division parent must be an integer.',
       'division_parent.exists:division,id' => 'Division parent must be an id of an existing division.',
       'id_ambassador.integer' => 'Ambassador must be an integer.',

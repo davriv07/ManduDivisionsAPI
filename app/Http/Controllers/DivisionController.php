@@ -16,7 +16,7 @@ class DivisionController extends Controller
       //* Results per page
       $perPage = $request->query('per_page', 10);
       $divisions = DB::table('divisions as d')
-        ->select('d.id', 'd.division', 'd2.division as division_parent', 'd.collaborators', 'a.name')
+        ->select('d.id', 'd.division', 'd2.division as division_parent','d.level', 'd.collaborators', 'a.name as ambassador')
         ->selectSub(function ($subquery) {
           $subquery->from('subdivisions_relations as sbr')
             ->whereColumn('sbr.id_division_parent','d.id')
@@ -69,6 +69,7 @@ class DivisionController extends Controller
       Division::create([
         'division' => $request->division,
         'division_parent' => $request->division_parent,
+        'level' => $request->level ?? 1,
         'collaborators' => $request->collaborators ?? 0,
         'id_ambassador' => $request->id_ambassador,
       ]);
@@ -97,6 +98,7 @@ class DivisionController extends Controller
         ->update([
           'division' => $request->division,
           'division_parent' => $request->division_parent,
+          'level' => $request->level ?? 1,
           'collaborators' => $request->collaborators ?? 0,
           'id_ambassador' => $request->id_ambassador,
         ]);
